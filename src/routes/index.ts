@@ -1,19 +1,26 @@
 // routes.ts
 import express from "express";
 import {
-  getAllItems,
-  getItem,
-  createItem,
-  updateItem,
-  deleteItem,
+  getRaces,
+  getDrivers,
+  getTeams,
+  getDriverDetail,
+  getTeamDetail,
+  saveRaceResult,
 } from "../controllers";
 
 const router = express.Router();
 
-router.get("/items", getAllItems);
-router.get("/items/:id", getItem);
-router.post("/items", createItem);
-router.put("/items/:id", updateItem);
-router.delete("/items/:id", deleteItem);
+router.get("/races", getRaces);
+router.post("/save-race-result", saveRaceResult);
+router.get("/drivers", getDrivers);
+router.get("/drivers/:id/:name", getDriverDetail);
+router.get("/teams", getTeams);
+router.get("/teams/:id", getTeamDetail);
+router.get("/", (req, res) =>
+  res.status(200).send({
+    message: "Welcome to the crawling race result APIs!",
+  })
+);
 
 export default router;

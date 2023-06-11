@@ -35,70 +35,171 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteItem = exports.updateItem = exports.createItem = exports.getItem = exports.getAllItems = void 0;
-var models_1 = __importDefault(require("../models"));
-var axios_1 = __importDefault(require("axios"));
-var url = "https://www.formula1.com/en/results.html";
-var getAllItems = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, htmlData;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, axios_1.default.get(url)];
+exports.getTeamDetail = exports.getDriverDetail = exports.getTeams = exports.getDrivers = exports.saveRaceResult = exports.getRaces = void 0;
+var services_1 = require("../services");
+var hostName = "https://www.formula1.com";
+var getRaces = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var year, _a, yearFilter, driver, team, grand_prix, resource, url, data, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                year = new Date().getFullYear().toString();
+                _a = req.query, yearFilter = _a.year, driver = _a.driver, team = _a.team, grand_prix = _a.grand_prix;
+                if (yearFilter) {
+                    year = yearFilter;
+                }
+                resource = "/en/results.html/".concat(year, "/races.html");
+                url = "".concat(hostName).concat(resource);
+                return [4 /*yield*/, (0, services_1.getDataFromHTML)(url, { driver: driver, team: team, grand_prix: grand_prix })];
             case 1:
-                response = _a.sent();
-                htmlData = response.data;
-                res.send(htmlData);
-                return [2 /*return*/];
+                data = _b.sent();
+                res.send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _b.sent();
+                next(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.getAllItems = getAllItems;
-var getItem = function (req, res) {
-    var id = req.params.id;
-    // Retrieve a specific item from the database based on the provided id
-    var item = models_1.default.findById(id);
-    if (item) {
-        res.json(item);
-    }
-    else {
-        res.status(404).json({ error: "Item not found" });
-    }
-};
-exports.getItem = getItem;
-var createItem = function (req, res) {
-    var name = req.body.name;
-    // Create a new item in the database
-    var item = models_1.default.create(name);
-    res.json(item);
-};
-exports.createItem = createItem;
-var updateItem = function (req, res) {
-    var id = req.params.id;
-    var name = req.body.name;
-    // Update the item in the database
-    var item = models_1.default.update(id, name);
-    if (item) {
-        res.json(item);
-    }
-    else {
-        res.status(404).json({ error: "Item not found" });
-    }
-};
-exports.updateItem = updateItem;
-var deleteItem = function (req, res) {
-    var id = req.params.id;
-    // Delete the item from the database
-    var deleted = models_1.default.delete(id);
-    if (deleted) {
-        res.json({ message: "Item deleted successfully" });
-    }
-    else {
-        res.status(404).json({ error: "Item not found" });
-    }
-};
-exports.deleteItem = deleteItem;
+exports.getRaces = getRaces;
+var saveRaceResult = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var year, yearFilter, resource, url, data, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                year = new Date().getFullYear().toString();
+                yearFilter = req.query.year;
+                if (yearFilter) {
+                    year = yearFilter;
+                }
+                resource = "/en/results.html/".concat(year, "/races.html");
+                url = "".concat(hostName).concat(resource);
+                return [4 /*yield*/, (0, services_1.getDataFromHTML)(url)];
+            case 1:
+                data = _a.sent();
+                (0, services_1.saveRaceResultService)(data.data, year);
+                res.sendStatus(202); //accepted
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                next(error_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.saveRaceResult = saveRaceResult;
+var getDrivers = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var year, resource, url, data, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                year = new Date().getFullYear().toString();
+                resource = "/en/results.html/".concat(year, "/drivers.html");
+                url = "".concat(hostName).concat(resource);
+                return [4 /*yield*/, (0, services_1.getDataFromHTML)(url)];
+            case 1:
+                data = _a.sent();
+                res.send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                error_3 = _a.sent();
+                next(error_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getDrivers = getDrivers;
+var getTeams = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var year, resource, url, data, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                year = new Date().getFullYear().toString();
+                resource = "/en/results.html/".concat(year, "/team.html");
+                url = "".concat(hostName).concat(resource);
+                return [4 /*yield*/, (0, services_1.getDataFromHTML)(url)];
+            case 1:
+                data = _a.sent();
+                res.send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                error_4 = _a.sent();
+                next(error_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getTeams = getTeams;
+var getDriverDetail = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, id, name_1, yearFilter, year, resource, url, data, error_5;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.params, id = _a.id, name_1 = _a.name;
+                yearFilter = req.query.year;
+                year = new Date().getFullYear().toString();
+                if (yearFilter) {
+                    year = yearFilter;
+                }
+                resource = "/en/results.html/".concat(year, "/drivers");
+                if (id && name_1) {
+                    resource = "/en/results.html/".concat(year, "/drivers/").concat(id, "/").concat(name_1);
+                }
+                url = "".concat(hostName).concat(resource, ".html");
+                return [4 /*yield*/, (0, services_1.getDataFromHTML)(url)];
+            case 1:
+                data = _b.sent();
+                res.send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                error_5 = _b.sent();
+                next(error_5);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getDriverDetail = getDriverDetail;
+var getTeamDetail = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, yearFilter, year, resource, url, data, error_6;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = req.params.id;
+                yearFilter = req.query.year;
+                year = new Date().getFullYear().toString();
+                if (yearFilter) {
+                    year = yearFilter;
+                }
+                resource = "/en/results.html/".concat(year, "/team");
+                if (id) {
+                    resource = "/en/results.html/".concat(year, "/team/").concat(id);
+                }
+                url = "".concat(hostName).concat(resource, ".html");
+                return [4 /*yield*/, (0, services_1.getDataFromHTML)(url)];
+            case 1:
+                data = _a.sent();
+                res.send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                error_6 = _a.sent();
+                next(error_6);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getTeamDetail = getTeamDetail;
 //# sourceMappingURL=index.js.map

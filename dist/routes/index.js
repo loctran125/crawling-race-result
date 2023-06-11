@@ -7,10 +7,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var controllers_1 = require("../controllers");
 var router = express_1.default.Router();
-router.get("/items", controllers_1.getAllItems);
-router.get("/items/:id", controllers_1.getItem);
-router.post("/items", controllers_1.createItem);
-router.put("/items/:id", controllers_1.updateItem);
-router.delete("/items/:id", controllers_1.deleteItem);
+router.get("/races", controllers_1.getRaces);
+router.post("/save-race-result", controllers_1.saveRaceResult);
+router.get("/drivers", controllers_1.getDrivers);
+router.get("/drivers/:id/:name", controllers_1.getDriverDetail);
+router.get("/teams", controllers_1.getTeams);
+router.get("/teams/:id", controllers_1.getTeamDetail);
+router.get("/", function (req, res) {
+    return res.status(200).send({
+        message: "Welcome to the crawling race result APIs!",
+    });
+});
 exports.default = router;
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,147 @@
+[
+  {
+    "_id": "e5d3d433-e5cd-4684-8bae-3262352f2c6e",
+    "colId": "c5bc1d21-a405-4bcc-8cfb-80cbc1e068d6",
+    "containerId": "",
+    "name": "race results",
+    "url": "http://localhost:8000/api/races",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-06-11T03:30:27.100Z",
+    "modified": "2023-06-11T04:17:22.238Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "year",
+        "value": "2022",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "driver",
+        "value": "",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "team",
+        "value": "",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "grand_prix",
+        "value": "",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": [],
+    "docs": "nếu không truyền filter mặc định lấy kết quả của năm hiện tại (2023)\n\nfilter dựa trên kết quả trả về all\n\n- year : filter kết quả theo năm\n- driver: filter tay đua thắng cuộc (Winner)\n- team: filter đội thắng cuộc (Car)\n- grand_prix: filter giải đấu\n\n# giải thích data trả về:\n- \"Grand Prix\":  giải đấu\n- \"Date\": ngày diễn ra cuộc đua,\n- \"Winner\": người thắng cuộc của giải đấu,\n- \"Car\":  đội đua,\n- \"Laps\":  số vòng đua,\n- \"Time\":  thời gian hoàn thành một vòng đua\n\n- \"filterYears\": các options lựa chọn để filter năm\n- \"filterTypes\": các option lựa chọn để filter các danh sách như danh sách các đội, danh sách các tay đua\n- \"typeDetails\": các option lựa chọn khi đã chọn filter theo giai đấu, filter theo các đội, filter theo tay đua.\n\n"
+  },
+  {
+    "_id": "9c7a15a3-767c-4011-8ad9-c262aabb84b0",
+    "colId": "c5bc1d21-a405-4bcc-8cfb-80cbc1e068d6",
+    "containerId": "",
+    "name": "get list driver",
+    "url": "http://localhost:8000/api/drivers?year=2021",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-06-11T03:50:23.409Z",
+    "modified": "2023-06-11T14:36:39.018Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "year",
+        "value": "2021",
+        "isPath": false
+      }
+    ],
+    "tests": [],
+    "docs": "nếu không truyền filter mặc định lấy danh sách tay lái của năm hiện tại (2023)\n- year : filter kết quả theo năm\n\n# giải thích data trả về:\n- \"Pos\":  thứ hạng của tay đua\n- \"Driver\": tên tay đua,\n- \"Nationality\": quốc tịch của tay đua,\n- \"Car\":  đội của tay đua,\n- \"PTS\": số điểm tích luỹ của tay đua qua các giải đấu,\n- \"filterYears\": các options lựa chọn để filter năm\n- \"typeDetails\": danh sách các tay đua để xem chi tiết tay đua (truyền thêm id)"
+  },
+  {
+    "_id": "6dc50756-1b82-4e10-b8fd-7d5c6ad513cf",
+    "colId": "c5bc1d21-a405-4bcc-8cfb-80cbc1e068d6",
+    "containerId": "",
+    "name": "get list team",
+    "url": "http://localhost:8000/api/teams?year=2021",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-06-11T03:53:20.155Z",
+    "modified": "2023-06-11T14:36:54.348Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "year",
+        "value": "2021",
+        "isPath": false
+      }
+    ],
+    "tests": [],
+    "docs": "nếu không truyền filter mặc định lấy danh sách các đội của năm hiện tại (2023)\n- year : filter kết quả theo năms\n\n# giải thích data trả về:\n- \"Pos\":  thứ hạng của đội đua\n- \"Team\": tên đội đua,\n- \"PTS\": số điểm tích luỹ của đội đua qua các giải đấu,\n\n- \"filterYears\": các options lựa chọn để filter năm\n- \"typeDetails\": danh sách các đội đua để xem chi tiết tay đua (truyền thêm id)"
+  },
+  {
+    "_id": "7c137441-ab69-4fb4-a178-fe3d3faeb5fb",
+    "colId": "c5bc1d21-a405-4bcc-8cfb-80cbc1e068d6",
+    "containerId": "",
+    "name": "get team detail",
+    "url": "http://localhost:8000/api/teams/ferrari?year=2021",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-06-11T04:11:26.473Z",
+    "modified": "2023-06-11T14:36:59.068Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "year",
+        "value": "2021",
+        "isPath": false
+      }
+    ],
+    "tests": [],
+    "docs": "nếu không truyền filter mặc định lấy kết quả đội của năm hiện tại (2023)\n- year : filter kết quả theo năm\n- param truyền lên lấy từ id ở danh sách các team lấy ở mục \"typeDetails\"\n\n# giải thích data trả về:\n- \"Grand Prix\":  giải đấu mà đội tham gia\n- \"Date\":  ngày tổ chức giải,\n- \"PTS\": số điểm tích luỹ của đội đua ở giải đấu,\n\n- \"filterYears\": các options lựa chọn để filter năm"
+  },
+  {
+    "_id": "a617d3a2-8c1f-43c0-ac8c-faaa20fa4131",
+    "colId": "c5bc1d21-a405-4bcc-8cfb-80cbc1e068d6",
+    "containerId": "",
+    "name": "get driver detail ",
+    "url": "http://localhost:8000/api/drivers/ALEALB01/alexander-albon?year=2023",
+    "method": "GET",
+    "sortNum": 25000,
+    "created": "2023-06-11T04:14:53.245Z",
+    "modified": "2023-06-11T04:31:00.742Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "year",
+        "value": "2023",
+        "isPath": false
+      }
+    ],
+    "tests": [],
+    "docs": "nếu không truyền filter mặc định lấy danh sách tay lái của năm hiện tại (2023)\n- year : filter kết quả theo năms\n- param truyền lên lấy từ id ở danh sách các tay đâu ở mục \"typeDetails\"\n\n# giải thích data trả về:\n\n- \"Grand Prix\":  giải đấu mà tay đua tham gia\n- \"Date\": ngày diễn ra giải đấu,\n- \"Race Position\": vị trí của tay đua,\n- \"Car\":  đội của tay đua,\n- \"PTS\": số điểm tích luỹ của tay đua ở giải đấu,\n\n- \"filterYears\": các options lựa chọn để filter năm"
+  },
+  {
+    "_id": "46dae82d-8dae-479d-9eae-3035f11a0540",
+    "colId": "c5bc1d21-a405-4bcc-8cfb-80cbc1e068d6",
+    "containerId": "",
+    "name": "save race result",
+    "url": "http://localhost:8000/api/save-race-result?year=2021",
+    "method": "POST",
+    "sortNum": 15000,
+    "created": "2023-06-11T11:52:19.184Z",
+    "modified": "2023-06-11T14:37:07.788Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "year",
+        "value": "2021",
+        "isPath": false
+      }
+    ],
+    "tests": [],
+    "docs": "lưu kết quả races result theo từng năm vào database\n\nid trong database là mã hash md5 của grand prix và năm nên chắc chắn sẽ không trùng kết quả giải đấu\n\nnếu id đã tồn tại trong database sẽ không lưu"
+  }
+]
